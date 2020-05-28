@@ -1,9 +1,14 @@
 //: Taking our rabin-karp algorithm for a walk
 
+// last checked with Xcode 9.4
+#if swift(>=4.0)
+print("Hello, Swift 4!")
+#endif
+
 import UIKit
 
 struct Constants {
-    static let hashMultiplier = 69069
+    static let hashMultiplier = 69061
 }
 
 precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
@@ -25,8 +30,8 @@ extension Character {
 // Find first position of pattern in the text using Rabin Karp algorithm
 public func search(text: String, pattern: String) -> Int {
     // convert to array of ints
-    let patternArray = pattern.characters.flatMap { $0.asInt }
-    let textArray = text.characters.flatMap { $0.asInt }
+    let patternArray = pattern.compactMap { $0.asInt }
+    let textArray = text.compactMap { $0.asInt }
 
     if textArray.count < patternArray.count {
         return -1

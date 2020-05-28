@@ -39,7 +39,7 @@ As you can see, each sublist contains only every 4th item from the original arra
 
 We now call `insertionSort()` once on each sublist.
 
-This particular version of [insertion sort](../Insertion Sort/) sorts from the back to the front. Each item in the sublist is compared against the others. If they're in the wrong order, the value is swapped and travels all the way down until we reach the start of the sublist.
+This particular version of [insertion sort](../Insertion%20Sort/) sorts from the back to the front. Each item in the sublist is compared against the others. If they're in the wrong order, the value is swapped and travels all the way down until we reach the start of the sublist.
 
 So for sublist 0, we swap `4` with `72`, then swap `4` with `64`. After sorting, this sublist looks like:
 
@@ -117,24 +117,10 @@ Here is an implementation of Shell Sort in Swift:
 var arr = [64, 20, 50, 33, 72, 10, 23, -1, 4, 5]
 
 public func shellSort(_ list: inout [Int]) {
-    
     var sublistCount = list.count / 2
-   
     while sublistCount > 0 {
-        
-        for index in 0..<list.count {
-           
-            guard index + sublistCount < list.count else { break }
-            
-            if list[index] > list[index + sublistCount] {
-                swap(&list[index], &list[index + sublistCount])
-            }
-            
-            guard sublistCount == 1 && index > 0 else { continue }
-            
-            if list[index - 1] > list[index] {
-                swap(&list[index - 1], &list[index])
-            }
+        for pos in 0..<sublistCount {
+            insertionSort(&list, start: pos, gap: sublistCount)
         }
         sublistCount = sublistCount / 2
     }

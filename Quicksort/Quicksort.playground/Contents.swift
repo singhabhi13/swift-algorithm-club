@@ -1,7 +1,11 @@
 //: Playground - noun: a place where people can play
 
-import Foundation
+// last checked with Xcode 9.0b4
+#if swift(>=4.0)
+print("Hello, Swift 4!")
+#endif
 
+import Foundation
 
 // *** Simple but inefficient version of quicksort ***
 
@@ -23,8 +27,6 @@ func quicksort<T: Comparable>(_ a: [T]) -> [T] {
 let list1 = [ 10, 0, 3, 9, 2, 14, 8, 27, 1, 5, 8, -1, 26 ]
 quicksort(list1)
 
-
-
 // *** Using Lomuto partitioning ***
 
 /*
@@ -40,12 +42,12 @@ func partitionLomuto<T: Comparable>(_ a: inout [T], low: Int, high: Int) -> Int 
   var i = low
   for j in low..<high {
     if a[j] <= pivot {
-      (a[i], a[j]) = (a[j], a[i])
+      a.swapAt(i, j)
       i += 1
     }
   }
 
-  (a[i], a[high]) = (a[high], a[i])
+  a.swapAt(i, high)
   return i
 }
 
@@ -62,8 +64,6 @@ func quicksortLomuto<T: Comparable>(_ a: inout [T], low: Int, high: Int) {
 }
 
 quicksortLomuto(&list2, low: 0, high: list2.count - 1)
-
-
 
 // *** Hoare partitioning ***
 
@@ -85,7 +85,7 @@ func partitionHoare<T: Comparable>(_ a: inout [T], low: Int, high: Int) -> Int {
     repeat { i += 1 } while a[i] < pivot
 
     if i < j {
-      swap(&a[i], &a[j])
+        a.swapAt(i, j)
     } else {
       return j
     }
@@ -105,8 +105,6 @@ func quicksortHoare<T: Comparable>(_ a: inout [T], low: Int, high: Int) {
 }
 
 quicksortHoare(&list3, low: 0, high: list3.count - 1)
-
-
 
 // *** Randomized sorting ***
 
@@ -131,8 +129,6 @@ var list4 = [ 10, 0, 3, 9, 2, 14, 8, 27, 1, 5, 8, -1, 26 ]
 quicksortRandom(&list4, low: 0, high: list4.count - 1)
 list4
 
-
-
 // *** Dutch national flag partioning ***
 
 /*
@@ -141,7 +137,7 @@ list4
 */
 public func swap<T>(_ a: inout [T], _ i: Int, _ j: Int) {
   if i != j {
-    swap(&a[i], &a[j])
+    a.swapAt(i, j)
   }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Edge<T>: Equatable where T: Equatable, T: Hashable {
+public struct Edge<T>: Equatable where T: Hashable {
 
   public let from: Vertex<T>
   public let to: Vertex<T>
@@ -19,28 +19,21 @@ public struct Edge<T>: Equatable where T: Equatable, T: Hashable {
 extension Edge: CustomStringConvertible {
 
   public var description: String {
-    get {
-      guard let unwrappedWeight = weight else {
-        return "\(from.description) -> \(to.description)"
-      }
-      return "\(from.description) -(\(unwrappedWeight))-> \(to.description)"
+    guard let unwrappedWeight = weight else {
+      return "\(from.description) -> \(to.description)"
     }
+    return "\(from.description) -(\(unwrappedWeight))-> \(to.description)"
   }
 
 }
 
 extension Edge: Hashable {
 
-  public var hashValue: Int {
-    get {
-      var string = "\(from.description)\(to.description)"
-      if weight != nil {
-        string.append("\(weight!)")
-      }
-      return string.hashValue
-    }
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(from.description)
+    hasher.combine(to.description)
+    hasher.combine(weight)
   }
-
 }
 
 public func == <T>(lhs: Edge<T>, rhs: Edge<T>) -> Bool {

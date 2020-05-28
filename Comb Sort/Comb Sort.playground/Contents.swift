@@ -2,7 +2,7 @@
 // Created by Stephen Rutstein
 // 7-16-2016
 
-import Cocoa
+import Foundation
 
 // Test Comb Sort with small array of ten values
 let array = [2, 32, 9, -1, 89, 101, 55, -10, -12, 67]
@@ -16,5 +16,3 @@ while i < 1000 {
   i += 1
 }
 combSort(bigArray)
-
-

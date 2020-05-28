@@ -17,7 +17,7 @@ let numberOfCarAdvertsWeSaw = carPrice.count
 let numberOfIterations = 100
 let alpha = 0.0001
 
-for n in 1...numberOfIterations {
+for _ in 1...numberOfIterations {
     for i in 0..<numberOfCarAdvertsWeSaw {
         let difference = carPrice[i] - predictedCarPrice(carAge[i])
         intercept += alpha * difference
@@ -34,7 +34,7 @@ func average(_ input: [Double]) -> Double {
 }
 
 func multiply(_ a: [Double], _ b: [Double]) -> [Double] {
-    return zip(a,b).map(*)
+    return zip(a, b).map(*)
 }
 
 func linearRegression(_ xs: [Double], _ ys: [Double]) -> (Double) -> Double {

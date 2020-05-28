@@ -1,6 +1,7 @@
 extension Graph {
   private func depthFirstSearch(_ source: Node, visited: inout [Node : Bool]) -> [Node] {
     var result = [Node]()
+    visited[source] = true
 
     if let adjacencyList = adjacencyList(forNode: source) {
       for nodeInAdjacencyList in adjacencyList {
@@ -10,7 +11,6 @@ extension Graph {
       }
     }
 
-    visited[source] = true
     return [source] + result
   }
 
@@ -19,11 +19,11 @@ extension Graph {
 
     let startNodes = calculateInDegreeOfNodes().filter({ _, indegree in
       return indegree == 0
-    }).map({ node, indegree in
+    }).map({ node, _ in
       return node
     })
 
-    var visited = [Node : Bool]()
+    var visited = [Node: Bool]()
     for (node, _) in adjacencyLists {
       visited[node] = false
     }
